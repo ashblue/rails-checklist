@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'devise'
+gem 'mm-devise'
+
 # Add MongoDB Database
 gem 'mongo_mapper'
 gem 'bson_ext'
