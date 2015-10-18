@@ -1,0 +1,19 @@
+{
+  "name": "rails-checklist",
+  "homepage": "https://github.com/ashblue/rails-checklist",
+  "authors": [
+    "Ash Blue <ash@blueashes.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -17,6 +17,9 @@ Bundler.require(*Rails.groups)
 
 module RailsChecklist
   class Application < Rails::Application
+    config.assets.enabled = true
+    config.assets.paths << Rails.root.join("app", "assets", "bower")
+
     # Attach MongoMapper to all models
     config.generators do |g|
       g.orm :mongo_mapper
