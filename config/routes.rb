@@ -11,6 +11,12 @@ Rails.application.routes.draw do
         delete '/' => 'checklists#destroy'
         scope '/entries' do
           get '/' => 'entries#index'
+          post '/' => 'entries#create'
+          scope '/:entry_id' do
+            get '/' => 'entries#show'
+            put '/' => 'entries#update'
+            delete '/' => 'entries#destroy'
+          end
         end
       end
     end

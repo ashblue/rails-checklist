@@ -1,7 +1,7 @@
 class Checklist
   include MongoMapper::Document
 
-  has_many :entry
+  many :entries
   belongs_to :user
 
   key :title, String
