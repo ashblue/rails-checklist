@@ -1,5 +1,21 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  scope '/api' do
+    scope '/checklists' do
+      get '/' => 'checklists#index'
+      post '/' => 'checklists#create'
+      scope '/:checklist_id' do
+        get '/' => 'checklists#show'
+        put '/' => 'checklists#update'
+        delete '/' => 'checklists#destroy'
+        scope '/entries' do
+          get '/' => 'entries#index'
+        end
+      end
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

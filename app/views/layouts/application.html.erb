@@ -20,6 +20,8 @@
   <% end %>
 
   <%= yield %>
+
+  <div id="csrf-token" class="hidden"><%= csrf_meta_tag %></div>
 </div>
 
 </body>
