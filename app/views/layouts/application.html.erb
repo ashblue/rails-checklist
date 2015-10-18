@@ -2,26 +2,25 @@
 <html>
 <head>
   <title>RailsChecklist</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<div class="container">
+  <p><%= notice %></p>
 
-<% if user_signed_in? %>
-    <li>
-      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-    </li>
-<% else %>
-    <li>
-      <%= link_to('Login', new_user_session_path)  %>
-    </li>
-<% end %>
+  <p><%= alert %></p>
 
-<%= yield %>
+  <% if user_signed_in? %>
+      <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
+  <% else %>
+      <p><%= link_to('Login', new_user_session_path) %></p>
+  <% end %>
+
+  <%= yield %>
+</div>
 
 </body>
 </html>
