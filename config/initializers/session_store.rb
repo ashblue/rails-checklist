@@ -1,3 +1,4 @@
 # Be sure to restart your server when you modify this file.
 
-Rails.application.config.session_store :cookie_store, key: '_rails-checklist_session'
+# Don't store cookies and disable session storage since the API user should track this
+Rails.application.config.session_store :disabled
