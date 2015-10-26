@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
 
   scope '/api' do
+
     scope '/checklists' do
       get '/' => 'checklists#index'
       post '/' => 'checklists#create'
@@ -9,17 +10,19 @@ Rails.application.routes.draw do
         get '/' => 'checklists#show'
         put '/' => 'checklists#update'
         delete '/' => 'checklists#destroy'
-        scope '/entries' do
-          get '/' => 'entries#index'
-          post '/' => 'entries#create'
-          scope '/:entry_id' do
-            get '/' => 'entries#show'
-            put '/' => 'entries#update'
-            delete '/' => 'entries#destroy'
-          end
-        end
       end
     end
+
+    scope '/entries' do
+      get '/' => 'entries#index'
+      post '/' => 'entries#create'
+      scope '/:entry_id' do
+        get '/' => 'entries#show'
+        put '/' => 'entries#update'
+        delete '/' => 'entries#destroy'
+      end
+    end
+
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

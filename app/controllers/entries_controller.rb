@@ -1,16 +1,23 @@
 class EntriesController < ApisController
-  before_filter :find_checklist, only: [:index, :create]
+  respond_to :json
+
   before_filter :find_entry, only: [:show, :update, :destroy]
 
   def index
-    render json: @checklist.entries
+    render json: Entry.where(user_id: current_user.id).to_json
   end
 
   def create
-    @entry = Entry.new(params)
-    if @entry.save
-      @checklist.entries << @entry
-      render json: @entry
+    @entry = Entry.create(@json)
+    @entry.user = current_user
+
+    if @entry.checklist.present? && @entry.checklist.user == @entry.user
+      if @entry.save
+        @entry.checklist.entries << @entry
+        render json: @entry
+      else
+        render nothing: true, status: :bad_request
+      end
     else
       render nothing: true, status: :bad_request
     end
@@ -21,7 +28,7 @@ class EntriesController < ApisController
   end
 
   def update
-    @entry.update_attributes(params)
+    @entry.update_attributes(@json)
     if @entry.save
       render json: @entry
     else
@@ -30,28 +37,19 @@ class EntriesController < ApisController
   end
 
   def destroy
-    if Entry.destroy(@entry.id)
-      render nothing: true, status: :ok
-    else
-      render nothing: true, status: :bad_request
-    end
+      if Entry.destroy(@entry.id)
+        render nothing: true, status: :ok
+      else
+        render nothing: true, status: :bad_request
+      end
   end
 
   private
   def find_entry
-    @entry = Entry.where(:checklist_id => params[:checklist_id], :id => params[:entry_id]).first
+    @entry = Entry.find_by_id(params[:entry_id])
     if !@entry.present?
       render nothing: true, status: :not_found
-    elsif @entry.checklist.user.id != current_user.id
-      render :json => { :errors => 'Incorrect permission' }, :status => :bad_request
-    end
-  end
-
-  def find_checklist
-    @checklist = Checklist.find_by_id(params[:checklist_id])
-    if !@checklist.present?
-      render nothing: true, status: :not_found
-    elsif @checklist.user_id != current_user.id
+    elsif @entry.user != current_user
       render :json => { :errors => 'Incorrect permission' }, :status => :bad_request
     end
   end
