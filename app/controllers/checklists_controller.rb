@@ -1,6 +1,4 @@
 class ChecklistsController < ApisController
-  respond_to :json
-
   before_filter :find_checklist, only: [:show, :update, :destroy]
 
   def index

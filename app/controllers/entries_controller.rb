@@ -1,6 +1,4 @@
 class EntriesController < ApisController
-  respond_to :json
-
   before_filter :find_entry, only: [:show, :update, :destroy]
 
   def index

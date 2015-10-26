@@ -23,6 +23,12 @@ Rails.application.routes.draw do
       end
     end
 
+    scope '/users' do
+      scope '/:user_id' do
+        get '/' => 'users#show'
+      end
+    end
+
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
