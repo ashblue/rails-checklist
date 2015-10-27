@@ -9,16 +9,6 @@
 <body>
 
 <div class="container">
-  <p><%= notice %></p>
-
-  <p><%= alert %></p>
-
-  <% if user_signed_in? %>
-      <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-  <% else %>
-      <p><%= link_to('Login', new_user_session_path) %></p>
-  <% end %>
-
   <%= yield %>
 </div>
 
