@@ -3,8 +3,10 @@ class UsersController < ApisController
 
   def show
     render :json => {
-               :email => @user.email,
-               :id => @user.id
+               :user => {
+                   :email => @user.email,
+                   :id => @user.id
+               }
            }
   end
 

@@ -2,17 +2,22 @@ class EntriesController < ApisController
   before_filter :find_entry, only: [:show, :update, :destroy]
 
   def index
-    render json: Entry.where(user_id: current_user.id).to_json
+    render :json => {
+               entries: Entry.where(user_id: current_user.id)
+           }
   end
 
   def create
-    @entry = Entry.create(@json)
+    logger.debug 'BEGIN CREATE'
+    logger.debug @json['entry']
+    @entry = Entry.create(@json['entry'])
+    logger.debug 'ENTRY CREATED WITHOUT ERROR'
     @entry.user = current_user
 
     if @entry.checklist.present? && @entry.checklist.user == @entry.user
       if @entry.save
         @entry.checklist.entries << @entry
-        render json: @entry
+        render :json => { entry: @entry }
       else
         render nothing: true, status: :bad_request
       end
@@ -22,13 +27,13 @@ class EntriesController < ApisController
   end
 
   def show
-    render json: @entry
+    render :json => { entry: @entry }
   end
 
   def update
-    @entry.update_attributes(@json)
+    @entry.update_attributes(@json['entry'])
     if @entry.save
-      render json: @entry
+      render :json => { entry: @entry }
     else
       render nothing: true, status: :bad_request
     end

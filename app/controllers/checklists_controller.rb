@@ -2,27 +2,27 @@ class ChecklistsController < ApisController
   before_filter :find_checklist, only: [:show, :update, :destroy]
 
   def index
-    render json: Checklist.where(user_id: current_user.id).to_json
+    render :json => { checklists: Checklist.where(user_id: current_user.id) }
   end
 
   def create
-    @checklist = Checklist.create(@json)
+    @checklist = Checklist.create(@json['checklist'])
     @checklist.user = current_user
     if @checklist.save
-      render json: @checklist.to_json
+      render :json => { checklist: @checklist }
     else
       render nothing: true, status: :bad_request
     end
   end
 
   def show
-    render json: @checklist.to_json
+    render :json => { checklist: @checklist }
   end
 
   def update
-    @checklist.update_attributes(params)
+    @checklist.update_attributes(@json['checklist'])
     if @checklist.save
-      render json: @checklist.to_json
+      render :json => { checklist: @checklist }
     else
       render nothing: true, status: :bad_request
     end
