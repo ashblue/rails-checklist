@@ -41,7 +41,7 @@ class EntriesController < ApisController
 
   def destroy
       if Entry.destroy(@entry.id)
-        render nothing: true, status: :ok
+        render :json => {}
       else
         render nothing: true, status: :bad_request
       end

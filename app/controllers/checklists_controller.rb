@@ -34,7 +34,7 @@ class ChecklistsController < ApisController
     }
 
     if Checklist.destroy(@checklist.id)
-      render nothing: true, status: :ok
+      render :json => {}
     else
       render nothing: true, status: :bad_request
     end
