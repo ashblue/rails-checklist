@@ -15,7 +15,4 @@
 //= require jquery_ujs
 //= require turbolinks
 
-// @NOTE Just a test, consider removing if not useful
-//= require underscore/underscore
-
 // require_tree .
